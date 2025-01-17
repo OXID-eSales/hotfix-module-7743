@@ -1,0 +1,28 @@
+{
+    "name": "oxid-esales/hotfix-module-7743",
+    "description": "OXID eShop hotfix module for #7743",
+    "type": "oxideshop-module",
+    "keywords": ["oxid", "modules", "eShop"],
+    "homepage": "https://www.oxid-esales.com/en/home.html",
+    "license": [
+        "proprietary"
+    ],
+    "extra": {
+        "oxideshop": {
+            "target-directory": "oe/oe_hotfix_7743"
+        }
+    },
+    "require": {
+        "php": ">=7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "OxidEsales\\Hotfix7743\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OxidEsales\\Hotfix7743\\Tests\\": "tests"
+        }
+    }
+}
