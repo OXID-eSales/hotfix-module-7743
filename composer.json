@@ -7,22 +7,19 @@
     "license": [
         "proprietary"
     ],
-    "extra": {
-        "oxideshop": {
-            "target-directory": "oe/oe_hotfix_7743"
-        }
-    },
     "require": {
-        "php": ">=7.1"
+      "php": ">=8.0",
+      "smarty/smarty": "^v2.6.31"
     },
+    "conflict": {
+       "oxid-esales/oxideshop-ce": "<7.0",
+       "oxid-esales/twig-component": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "OxidEsales\\Hotfix7743\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "OxidEsales\\Hotfix7743\\Tests\\": "tests"
         }
     }
 }
