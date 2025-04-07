@@ -112,4 +112,20 @@ final class PluginSmartyOxContentTest extends UnitTestCase
 
         $this->assertEmpty(smarty_function_oxcontent($aParams, $oSmarty));
     }
+
+    public function testWithParseErrorContent(): void
+    {
+        $sShopId = ShopIdCalculator::BASE_SHOP_ID;
+        $aParams['oxid'] = 'f41427a099a603773.44301043';
+        $aParams['assign'] = false;
+
+        /** @var MockObject|Smarty $oSmarty */
+        $oSmarty = $this->createPartialMock("smarty", ['fetch']);
+        $oSmarty->expects($this->once())
+            ->method('fetch')
+            ->with($this->equalTo('ox:f41427a099a603773.44301043oxcontent0' . $sShopId))
+            ->willReturnCallback(function(){trigger_error('smarty_compiler_error');});
+
+        $this->assertEmpty(smarty_function_oxcontent($aParams, $oSmarty));
+    }
 }

@@ -56,10 +56,16 @@ function smarty_function_oxcontent($params, &$smarty)
                     Registry::getConfig()->getShopId()
                 );
                 try {
+                    set_error_handler('oxcontent_error_handler', E_USER_ERROR);
                     $text = $smarty->fetch($resourceName);
                 } catch (\Throwable $error) {
                     Registry::getLogger()->error($error->getMessage(), [$error]);
                     $text = '';
+                    if (is_a($error,\Error::class)) {
+                        while (1 < ob_get_level()) {
+                            ob_end_clean();
+                        }
+                    }
                 }
                 $smarty->compile_check = Registry::getConfig()->getConfigParam('blCheckTemplates');
             }
@@ -72,4 +78,13 @@ function smarty_function_oxcontent($params, &$smarty)
     } else {
         return $text;
     }
+}
+
+function oxcontent_error_handler(int $errNo, string $errMsg): bool
+{
+    if (false !== strpos($errMsg, 'Smarty')) {
+        throw new \Error($errMsg, $errNo);
+    }
+
+    return false;
 }
